@@ -49,6 +49,8 @@ uvicorn app.main:app --host 0.0.0.0 --port 8000 --workers 2
 
 Put it behind HTTPS (Nginx, Caddy or your host's load balancer). If the proxy sets `X-Forwarded-For`, also set `THRIKO_TRUST_PROXY_HEADERS=true` so rate limiting sees real client IPs.
 
+**Cloudflare Workers:** the site deploys from `frontend/` using `frontend/wrangler.jsonc`. Set root directory `frontend`, build command `npm run build` and deploy command `npx wrangler deploy`. The quote form needs the Python API hosted separately.
+
 Prefer to host the frontend separately (Vercel, Netlify, S3)? Build with `VITE_API_BASE_URL=https://api.thriko.com` and add the site's origin to `THRIKO_ALLOWED_ORIGINS`.
 
 > **Excel storage.** The workbook must live on a persistent disk on a single server. Serverless or multi-server hosting would lose or split the file. If you outgrow that, swap `ExcelEnquiryStore` for a database or a Google Sheets/Microsoft 365 integration; the route handler doesn't change.
