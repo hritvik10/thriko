@@ -1,0 +1,38 @@
+.band {
+  display: grid;
+  gap: 28px;
+  align-items: center;
+  border-radius: var(--radius-lg);
+  padding: 56px 28px;
+  background:
+    radial-gradient(circle at 100% 100%, rgba(29, 78, 216, 0.45), transparent 50%),
+    var(--color-navy);
+  color: var(--color-on-navy);
+}
+
+.band h2 {
+  color: #fff;
+  font-size: clamp(1.75rem, 4vw, 2.5rem);
+  margin-bottom: 12px;
+}
+
+.band p {
+  font-size: 1.1rem;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+@media (min-width: 900px) {
+  .band {
+    grid-template-columns: 1.4fr 1fr;
+    padding: 64px 56px;
+  }
+
+  .actions {
+    justify-content: flex-end;
+  }
+}

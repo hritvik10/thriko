@@ -1,0 +1,51 @@
+/* Design tokens: the single source of truth for colour, type and spacing.
+   All pairs used for text meet WCAG AA contrast (checked at 4.5:1+). */
+:root {
+  /* Colour */
+  --color-bg: #ffffff;
+  --color-surface: #f5f7fa;
+  --color-surface-strong: #eef2f7;
+  --color-line: #e5e7eb;
+  --color-line-strong: #cbd2dc;
+  --color-navy: #0b2545;
+  --color-navy-deep: #081b33;
+  --color-primary: #1d4ed8;
+  --color-primary-dark: #1e3a8a;
+  --color-primary-soft: #eff6ff;
+  --color-text: #1f2937;
+  --color-muted: #4b5563;
+  --color-on-navy: #c7d2e3;
+  --color-success: #047857;
+  --color-success-soft: #ecfdf5;
+  --color-error: #b91c1c;
+  --color-premium: #fbbf24;
+  --color-code-key: #93c5fd;
+  --color-code-string: #86efac;
+  --color-code-comment: #8fa3bf;
+
+  /* Typography */
+  --font-display: 'Manrope', system-ui, sans-serif;
+  --font-body: 'Inter', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, Menlo, monospace;
+
+  /* Layout */
+  --container-max: 1180px;
+  --gutter: 20px;
+  --header-height: 76px;
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+
+  /* Elevation */
+  --shadow-card: 0 20px 40px -24px rgba(11, 37, 69, 0.3);
+  --shadow-float: 0 30px 60px -30px rgba(11, 37, 69, 0.45), 0 2px 6px rgba(11, 37, 69, 0.06);
+
+  /* Motion */
+  --ease-out: cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+@media (min-width: 900px) {
+  :root {
+    --gutter: 32px;
+  }
+}

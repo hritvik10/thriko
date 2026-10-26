@@ -1,0 +1,14 @@
+{
+  "_comment": "Single source of truth for target countries. Read by frontend (src/features/enquiry/markets.ts) and backend (app/markets.py). Listed in priority order. Budgets typed below lowBudgetBelow (whole units of the local currency) show the 'affordable prices guaranteed' note.",
+  "markets": [
+    { "code": "US", "name": "United States", "currency": "USD", "locale": "en-US", "lowBudgetBelow": 5000 },
+    { "code": "GB", "name": "United Kingdom", "currency": "GBP", "locale": "en-GB", "lowBudgetBelow": 4000 },
+    { "code": "CA", "name": "Canada", "currency": "CAD", "locale": "en-CA", "lowBudgetBelow": 7000 },
+    { "code": "AU", "name": "Australia", "currency": "AUD", "locale": "en-AU", "lowBudgetBelow": 7500 },
+    { "code": "AE", "name": "United Arab Emirates", "currency": "AED", "locale": "en-AE", "lowBudgetBelow": 18000 },
+    { "code": "DE", "name": "Germany", "currency": "EUR", "locale": "de-DE", "lowBudgetBelow": 5000 },
+    { "code": "SG", "name": "Singapore", "currency": "SGD", "locale": "en-SG", "lowBudgetBelow": 6500 },
+    { "code": "IN", "name": "India", "currency": "INR", "locale": "en-IN", "lowBudgetBelow": 400000 },
+    { "code": "OTHER", "name": "Other country", "currency": "USD", "locale": "en-US", "lowBudgetBelow": 5000 }
+  ]
+}

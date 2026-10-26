@@ -1,0 +1,17 @@
+# Dependencies & builds
+node_modules/
+frontend/dist/
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# Local config & data (enquiries contain personal data: never commit them)
+.env
+backend/data/*.xlsx
+backend/data/*.lock
+backend/data/.enquiries-*
+
+# OS / editor
+.DS_Store
+.vscode/

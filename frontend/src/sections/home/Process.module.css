@@ -1,0 +1,96 @@
+.section {
+  padding: 88px 0;
+}
+
+.timeline {
+  display: grid;
+}
+
+.step {
+  position: relative;
+  padding: 0 0 36px 64px;
+}
+
+/* Connector line between steps (vertical on mobile, horizontal on desktop). */
+.step::before {
+  content: '';
+  position: absolute;
+  left: 21px;
+  top: 44px;
+  bottom: 0;
+  width: 2px;
+  background: #d6deea;
+}
+
+.step:last-child::before {
+  display: none;
+}
+
+.number {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--color-navy);
+  color: #fff;
+  display: grid;
+  place-items: center;
+  font: 800 1rem/1 var(--font-display);
+  transition: background-color 0.3s ease;
+}
+
+.step:hover .number {
+  background: var(--color-primary);
+}
+
+.step h3 {
+  font-size: 1.25rem;
+  margin: 8px 0 6px;
+}
+
+.step p {
+  color: var(--color-muted);
+  font-size: 0.95rem;
+}
+
+.outputs {
+  margin-top: 12px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.outputs li {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--color-primary-dark);
+  background: var(--color-primary-soft);
+  padding: 4px 10px;
+  border-radius: 999px;
+}
+
+@media (min-width: 900px) {
+  .section {
+    padding: 112px 0;
+  }
+
+  .timeline {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 24px;
+  }
+
+  .step {
+    padding: 64px 0 0;
+  }
+
+  .step::before {
+    left: 52px;
+    right: -20px;
+    top: 21px;
+    bottom: auto;
+    width: auto;
+    height: 2px;
+  }
+}

@@ -1,0 +1,89 @@
+.footer {
+  background: var(--color-surface);
+  border-top: 1px solid var(--color-line);
+  padding: 64px 0 32px;
+  margin-top: 96px;
+}
+
+.grid {
+  display: grid;
+  gap: 36px;
+}
+
+.about p {
+  color: var(--color-muted);
+  font-size: 0.95rem;
+  margin: 16px 0 20px;
+  max-width: 300px;
+}
+
+.socials {
+  display: flex;
+  gap: 8px;
+}
+
+.socials a {
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--color-line);
+  background: #fff;
+  display: grid;
+  place-items: center;
+  color: var(--color-navy);
+  transition:
+    border-color 0.2s ease,
+    color 0.2s ease;
+}
+
+.socials a:hover {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+.heading {
+  font: 600 0.875rem/1.2 var(--font-body);
+  color: var(--color-navy);
+  letter-spacing: 0;
+  margin-bottom: 14px;
+}
+
+.links li + li {
+  margin-top: 10px;
+}
+
+.links a {
+  color: var(--color-muted);
+  font-size: 0.95rem;
+}
+
+.links a:hover {
+  color: var(--color-primary);
+}
+
+.plain {
+  color: var(--color-muted);
+  font-size: 0.95rem;
+}
+
+.bottom {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 48px;
+  padding-top: 24px;
+  border-top: 1px solid var(--color-line);
+  font-size: 0.875rem;
+  color: var(--color-muted);
+}
+
+.bottom a {
+  color: var(--color-muted);
+}
+
+@media (min-width: 900px) {
+  .grid {
+    grid-template-columns: 1.5fr 1fr 1fr 1fr;
+  }
+}

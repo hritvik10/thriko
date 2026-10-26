@@ -1,0 +1,39 @@
+.heading {
+  max-width: 680px;
+  margin-bottom: 48px;
+}
+
+.center {
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+
+.kicker {
+  font: 600 0.8rem/1 var(--font-body);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-primary);
+}
+
+.title {
+  font-size: clamp(1.9rem, 4.2vw, 2.75rem);
+  margin: 14px 0 16px;
+}
+
+.lead {
+  color: var(--color-muted);
+  font-size: 1.125rem;
+}
+
+.onDark .kicker {
+  color: var(--color-premium);
+}
+
+.onDark .title {
+  color: #fff;
+}
+
+.onDark .lead {
+  color: var(--color-on-navy);
+}
