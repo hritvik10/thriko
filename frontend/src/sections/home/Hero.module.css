@@ -5,6 +5,9 @@
 
 .grid {
   display: grid;
+  /* minmax(0, ...) lets the track shrink below its content's natural width;
+     a plain 1fr / auto track grows to fit the code card and pushes the page wider than the phone. */
+  grid-template-columns: minmax(0, 1fr);
   gap: 48px;
   align-items: center;
 }
@@ -74,10 +77,9 @@
 }
 
 .principleList {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
   justify-content: center;
-  gap: 12px 36px;
+  gap: 12px;
   font: 600 0.95rem/1.4 var(--font-display);
   color: var(--color-navy);
 }
@@ -93,12 +95,20 @@
   color: var(--color-primary);
 }
 
+@media (min-width: 700px) {
+  .principleList {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px 36px;
+  }
+}
+
 @media (min-width: 1000px) {
   .hero {
     padding: 88px 0 104px;
   }
 
   .grid {
-    grid-template-columns: 1.05fr 1fr;
+    grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
   }
 }

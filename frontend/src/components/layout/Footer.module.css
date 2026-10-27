@@ -82,6 +82,23 @@
   color: var(--color-muted);
 }
 
+@media (max-width: 899px) {
+  .links li + li {
+    margin-top: 0;
+  }
+
+  .links a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+  }
+
+  .bottom a {
+    display: inline-block;
+    padding: 12px 2px;
+  }
+}
+
 @media (min-width: 900px) {
   .grid {
     grid-template-columns: 1.5fr 1fr 1fr 1fr;

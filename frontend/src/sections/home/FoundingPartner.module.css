@@ -7,7 +7,7 @@
   gap: 36px;
   border: 1px solid var(--color-line);
   border-radius: var(--radius-lg);
-  padding: 32px;
+  padding: 22px;
   background:
     radial-gradient(circle at 0% 0%, var(--color-primary-soft), transparent 55%),
     #fff;
@@ -50,8 +50,8 @@
 
 .benefits li {
   display: flex;
-  gap: 16px;
-  padding: 20px;
+  gap: 14px;
+  padding: 16px;
   border-radius: var(--radius-md);
   background: var(--color-surface);
   border: 1px solid var(--color-line);
@@ -93,6 +93,11 @@
     grid-template-columns: 1fr 1fr;
     padding: 56px;
     align-items: center;
+  }
+
+  .benefits li {
+    gap: 16px;
+    padding: 20px;
   }
 
   .benefits {

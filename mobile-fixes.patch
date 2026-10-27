@@ -1,0 +1,230 @@
+diff --git a/frontend/src/components/layout/Footer.module.css b/frontend/src/components/layout/Footer.module.css
+index 995410b..655c616 100644
+--- a/frontend/src/components/layout/Footer.module.css
++++ b/frontend/src/components/layout/Footer.module.css
+@@ -82,6 +82,23 @@
+   color: var(--color-muted);
+ }
+ 
++@media (max-width: 899px) {
++  .links li + li {
++    margin-top: 0;
++  }
++
++  .links a {
++    display: inline-flex;
++    align-items: center;
++    min-height: 44px;
++  }
++
++  .bottom a {
++    display: inline-block;
++    padding: 12px 2px;
++  }
++}
++
+ @media (min-width: 900px) {
+   .grid {
+     grid-template-columns: 1.5fr 1fr 1fr 1fr;
+diff --git a/frontend/src/components/layout/Header.module.css b/frontend/src/components/layout/Header.module.css
+index 4816050..503089d 100644
+--- a/frontend/src/components/layout/Header.module.css
++++ b/frontend/src/components/layout/Header.module.css
+@@ -2,11 +2,21 @@
+   position: sticky;
+   top: 0;
+   z-index: 50;
++  border-bottom: 1px solid var(--color-line);
++  transition: box-shadow 0.25s ease;
++}
++
++/* The frosted background lives on a pseudo-element on purpose. backdrop-filter on
++   .header itself would make the header the containing block for the position: fixed
++   mobile menu, squashing the menu to the header's height instead of the screen's. */
++.header::before {
++  content: '';
++  position: absolute;
++  inset: 0;
++  z-index: -1;
+   background: rgba(255, 255, 255, 0.95);
+   backdrop-filter: blur(10px);
+   -webkit-backdrop-filter: blur(10px);
+-  border-bottom: 1px solid var(--color-line);
+-  transition: box-shadow 0.25s ease;
+ }
+ 
+ .scrolled {
+@@ -75,6 +85,7 @@
+   inset: var(--header-height) 0 0 0;
+   background: #fff;
+   overflow-y: auto;
++  overscroll-behavior: contain;
+   padding: 8px 0 32px;
+   border-top: 1px solid var(--color-line);
+ }
+diff --git a/frontend/src/components/ui/Button.module.css b/frontend/src/components/ui/Button.module.css
+index 43016b6..34be4f4 100644
+--- a/frontend/src/components/ui/Button.module.css
++++ b/frontend/src/components/ui/Button.module.css
+@@ -5,7 +5,7 @@
+   gap: 8px;
+   border-radius: var(--radius-sm);
+   border: 1px solid transparent;
+-  font: 600 1rem/1 var(--font-body);
++  font: 600 1rem/1.25 var(--font-body);
+   cursor: pointer;
+   text-decoration: none;
+   transition:
+diff --git a/frontend/src/pages/ContactPage.module.css b/frontend/src/pages/ContactPage.module.css
+index e90978a..b30ff06 100644
+--- a/frontend/src/pages/ContactPage.module.css
++++ b/frontend/src/pages/ContactPage.module.css
+@@ -8,14 +8,19 @@
+ .breadcrumb {
+   display: flex;
+   gap: 8px;
+-  padding-top: 28px;
++  padding-top: 18px;
+   font-size: 0.875rem;
+   color: var(--color-muted);
+ }
+ 
++.breadcrumb {
++  align-items: center;
++}
++
+ .breadcrumb a {
+   color: var(--color-muted);
+   text-decoration: underline;
++  padding: 10px 0;
+ }
+ 
+ .intro {
+diff --git a/frontend/src/sections/home/BlueprintCard.module.css b/frontend/src/sections/home/BlueprintCard.module.css
+index 446b694..57e4210 100644
+--- a/frontend/src/sections/home/BlueprintCard.module.css
++++ b/frontend/src/sections/home/BlueprintCard.module.css
+@@ -43,11 +43,11 @@
+ 
+ .code {
+   margin: 0;
+-  padding: 20px 18px 8px;
+-  font: 400 0.82rem/1.85 var(--font-mono);
++  padding: 20px 14px 8px;
++  /* Scales with the screen so the longest line (about 41 characters) fits on a phone. */
++  font: 400 clamp(0.6rem, 3vw, 0.82rem) / 1.85 var(--font-mono);
+   color: #e2e8f0;
+   overflow-x: auto;
+-  min-height: 300px;
+ }
+ 
+ .line {
+@@ -68,7 +68,7 @@
+ .lineNumber {
+   display: inline-block;
+   width: 2ch;
+-  margin-right: 14px;
++  margin-right: 10px;
+   text-align: right;
+   color: #7189ad;
+   user-select: none;
+@@ -173,3 +173,14 @@
+     transform: translateY(-6px);
+   }
+ }
++
++@media (min-width: 700px) {
++  .code {
++    padding: 20px 18px 8px;
++    min-height: 300px;
++  }
++
++  .lineNumber {
++    margin-right: 14px;
++  }
++}
+diff --git a/frontend/src/sections/home/FoundingPartner.module.css b/frontend/src/sections/home/FoundingPartner.module.css
+index c837517..4b8ed39 100644
+--- a/frontend/src/sections/home/FoundingPartner.module.css
++++ b/frontend/src/sections/home/FoundingPartner.module.css
+@@ -7,7 +7,7 @@
+   gap: 36px;
+   border: 1px solid var(--color-line);
+   border-radius: var(--radius-lg);
+-  padding: 32px;
++  padding: 22px;
+   background:
+     radial-gradient(circle at 0% 0%, var(--color-primary-soft), transparent 55%),
+     #fff;
+@@ -50,8 +50,8 @@
+ 
+ .benefits li {
+   display: flex;
+-  gap: 16px;
+-  padding: 20px;
++  gap: 14px;
++  padding: 16px;
+   border-radius: var(--radius-md);
+   background: var(--color-surface);
+   border: 1px solid var(--color-line);
+@@ -95,6 +95,11 @@
+     align-items: center;
+   }
+ 
++  .benefits li {
++    gap: 16px;
++    padding: 20px;
++  }
++
+   .benefits {
+     grid-template-columns: repeat(2, minmax(0, 1fr));
+   }
+diff --git a/frontend/src/sections/home/Hero.module.css b/frontend/src/sections/home/Hero.module.css
+index 5038f77..4f3e42f 100644
+--- a/frontend/src/sections/home/Hero.module.css
++++ b/frontend/src/sections/home/Hero.module.css
+@@ -5,6 +5,9 @@
+ 
+ .grid {
+   display: grid;
++  /* minmax(0, ...) lets the track shrink below its content's natural width;
++     a plain 1fr / auto track grows to fit the code card and pushes the page wider than the phone. */
++  grid-template-columns: minmax(0, 1fr);
+   gap: 48px;
+   align-items: center;
+ }
+@@ -74,10 +77,9 @@
+ }
+ 
+ .principleList {
+-  display: flex;
+-  flex-wrap: wrap;
++  display: grid;
+   justify-content: center;
+-  gap: 12px 36px;
++  gap: 12px;
+   font: 600 0.95rem/1.4 var(--font-display);
+   color: var(--color-navy);
+ }
+@@ -93,12 +95,20 @@
+   color: var(--color-primary);
+ }
+ 
++@media (min-width: 700px) {
++  .principleList {
++    display: flex;
++    flex-wrap: wrap;
++    gap: 12px 36px;
++  }
++}
++
+ @media (min-width: 1000px) {
+   .hero {
+     padding: 88px 0 104px;
+   }
+ 
+   .grid {
+-    grid-template-columns: 1.05fr 1fr;
++    grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+   }
+ }

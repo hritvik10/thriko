@@ -2,11 +2,21 @@
   position: sticky;
   top: 0;
   z-index: 50;
+  border-bottom: 1px solid var(--color-line);
+  transition: box-shadow 0.25s ease;
+}
+
+/* The frosted background lives on a pseudo-element on purpose. backdrop-filter on
+   .header itself would make the header the containing block for the position: fixed
+   mobile menu, squashing the menu to the header's height instead of the screen's. */
+.header::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
   background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
-  border-bottom: 1px solid var(--color-line);
-  transition: box-shadow 0.25s ease;
 }
 
 .scrolled {
@@ -75,6 +85,7 @@
   inset: var(--header-height) 0 0 0;
   background: #fff;
   overflow-y: auto;
+  overscroll-behavior: contain;
   padding: 8px 0 32px;
   border-top: 1px solid var(--color-line);
 }

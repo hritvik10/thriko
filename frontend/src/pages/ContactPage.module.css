@@ -8,14 +8,19 @@
 .breadcrumb {
   display: flex;
   gap: 8px;
-  padding-top: 28px;
+  padding-top: 18px;
   font-size: 0.875rem;
   color: var(--color-muted);
+}
+
+.breadcrumb {
+  align-items: center;
 }
 
 .breadcrumb a {
   color: var(--color-muted);
   text-decoration: underline;
+  padding: 10px 0;
 }
 
 .intro {

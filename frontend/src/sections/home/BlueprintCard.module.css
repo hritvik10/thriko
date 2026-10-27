@@ -43,11 +43,11 @@
 
 .code {
   margin: 0;
-  padding: 20px 18px 8px;
-  font: 400 0.82rem/1.85 var(--font-mono);
+  padding: 20px 14px 8px;
+  /* Scales with the screen so the longest line (about 41 characters) fits on a phone. */
+  font: 400 clamp(0.6rem, 3vw, 0.82rem) / 1.85 var(--font-mono);
   color: #e2e8f0;
   overflow-x: auto;
-  min-height: 300px;
 }
 
 .line {
@@ -68,7 +68,7 @@
 .lineNumber {
   display: inline-block;
   width: 2ch;
-  margin-right: 14px;
+  margin-right: 10px;
   text-align: right;
   color: #7189ad;
   user-select: none;
@@ -171,5 +171,16 @@
 @keyframes float {
   50% {
     transform: translateY(-6px);
+  }
+}
+
+@media (min-width: 700px) {
+  .code {
+    padding: 20px 18px 8px;
+    min-height: 300px;
+  }
+
+  .lineNumber {
+    margin-right: 14px;
   }
 }
