@@ -2,7 +2,7 @@
   background: var(--color-surface);
   border-top: 1px solid var(--color-line);
   padding: 64px 0 32px;
-  margin-top: 96px;
+  margin-top: 56px;
 }
 
 .grid {

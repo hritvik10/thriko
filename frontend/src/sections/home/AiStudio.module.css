@@ -1,6 +1,6 @@
 .section {
   position: relative;
-  padding: 88px 0;
+  padding: 48px 0;
   background:
     radial-gradient(circle at 85% 0%, rgba(29, 78, 216, 0.35), transparent 45%),
     var(--color-navy);
@@ -149,7 +149,7 @@
 
 @media (min-width: 900px) {
   .section {
-    padding: 112px 0;
+    padding: 64px 0;
   }
 
   .lower {

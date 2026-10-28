@@ -1,5 +1,5 @@
 .hero {
-  padding: 56px 0 72px;
+  padding: 50px 0 48px;
   background: linear-gradient(180deg, var(--color-surface) 0%, #fff 100%);
 }
 
@@ -105,7 +105,7 @@
 
 @media (min-width: 1000px) {
   .hero {
-    padding: 88px 0 104px;
+    padding: 64px 0 72px;
   }
 
   .grid {

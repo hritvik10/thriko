@@ -159,7 +159,7 @@ export const services: Service[] = [
     icon: 'shield',
     title: 'Maintenance & Support',
     description:
-      'Flexible care plans covering monitoring, security patches, backups and continuous improvement, sized to what you need.',
+      'Flexible Maintenance plans covering monitoring, security patches, backups and continuous improvement, sized to what you need.',
     deliverables: [
       'Uptime monitoring and incident response',
       'Regular security and dependency updates',
@@ -270,8 +270,8 @@ export const processSteps: ProcessStep[] = [
   },
   {
     title: 'Launch & Support',
-    description: 'Go-live, training and handover documentation, then the care plan you choose.',
-    outputs: ['Launch checklist', 'Flexible care plan'],
+    description: 'Go-live, training and handover documentation, then the Maintenance plan you choose.',
+    outputs: ['Launch checklist', 'Flexible Maintenance plan'],
   },
 ];
 
@@ -297,7 +297,7 @@ export const whyThriko = {
     {
       icon: 'shield',
       title: 'Support after launch',
-      description: 'Care plans that fit your needs, from light monitoring to ongoing feature work.',
+      description: 'Maintenance plans that fit your needs, from light monitoring to ongoing feature work.',
     },
   ] satisfies Differentiator[],
   commitments: [
@@ -305,7 +305,7 @@ export const whyThriko = {
     { label: 'Pricing', value: 'From $1,000, fixed' },
     { label: 'Progress updates', value: 'Every week' },
     { label: 'Code & IP ownership', value: '100% yours' },
-    { label: 'After launch', value: 'Care plan of your choice' },
+    { label: 'After launch', value: 'Maintenance plan of your choice' },
   ] satisfies Commitment[],
 };
 
@@ -359,7 +359,7 @@ export const faqs: FaqItem[] = [
   {
     question: 'What happens after launch?',
     answer:
-      'You choose a care plan that suits you, from monitoring and security updates to ongoing feature sprints. Or we hand over full documentation so your own team can take it from there.',
+      'You choose a Maintenance plan that suits you, from monitoring and security updates to ongoing feature sprints. Or we hand over full documentation so your own team can take it from there.',
   },
   {
     question: 'Will you sign an NDA?',
