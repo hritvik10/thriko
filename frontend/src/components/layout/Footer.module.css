@@ -31,9 +31,7 @@
   display: grid;
   place-items: center;
   color: var(--color-navy);
-  transition:
-    border-color 0.2s ease,
-    color 0.2s ease;
+  transition: border-color 0.2s ease, color 0.2s ease;
 }
 
 .socials a:hover {
@@ -95,7 +93,6 @@
 
   .bottom a {
     display: inline-block;
-    padding: 12px 2px;
   }
 }
 

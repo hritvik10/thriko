@@ -1,35 +1,43 @@
-import { Link } from 'react-router-dom';
-import Logo from '../brand/Logo';
-import Container from '../ui/Container';
-import Icon, { type IconName } from '../ui/Icon';
-import { config } from '../../config';
-import { routes, sectionHref, sectionIds } from '../../routes';
-import styles from './Footer.module.css';
+import { Link } from "react-router-dom";
+import Logo from "../brand/Logo";
+import Container from "../ui/Container";
+import Icon, { type IconName } from "../ui/Icon";
+import { config } from "../../config";
+import { routes, sectionHref, sectionIds } from "../../routes";
+import styles from "./Footer.module.css";
 
 // TODO: replace with Thriko's real profile URLs before launch.
 const socials: { label: string; href: string; icon: IconName }[] = [
-  { label: 'Thriko on LinkedIn', href: 'https://www.linkedin.com/company/thriko/', icon: 'linkedin' },
-  { label: 'Email Thriko', href: `mailto:${config.contactEmail}`, icon: 'mail' },
+  {
+    label: "Thriko on LinkedIn",
+    href: "https://www.linkedin.com/company/thriko/",
+    icon: "linkedin",
+  },
+  {
+    label: "Email Thriko",
+    href: `mailto:${config.contactEmail}`,
+    icon: "mail",
+  },
 ];
 
 const columns = [
   {
-    title: 'Services',
+    title: "Services",
     links: [
-      { label: 'Website Development', to: sectionHref(sectionIds.services) },
-      { label: 'Mobile Apps', to: sectionHref(sectionIds.services) },
-      { label: 'UI/UX Design', to: sectionHref(sectionIds.services) },
-      { label: 'AI Studio', to: sectionHref(sectionIds.ai) },
+      { label: "Website Development", to: sectionHref(sectionIds.services) },
+      { label: "Mobile Apps", to: sectionHref(sectionIds.services) },
+      { label: "UI/UX Design", to: sectionHref(sectionIds.services) },
+      { label: "AI Studio", to: sectionHref(sectionIds.ai) },
     ],
   },
   {
-    title: 'Company',
+    title: "Company",
     links: [
-      { label: 'What we build', to: sectionHref(sectionIds.work) },
-      { label: 'Pricing', to: sectionHref(sectionIds.pricing) },
-      { label: 'Process', to: sectionHref(sectionIds.process) },
-      { label: 'About', to: sectionHref(sectionIds.about) },
-      { label: 'FAQ', to: sectionHref(sectionIds.faq) },
+      { label: "What we build", to: sectionHref(sectionIds.work) },
+      { label: "Pricing", to: sectionHref(sectionIds.pricing) },
+      { label: "Process", to: sectionHref(sectionIds.process) },
+      { label: "About", to: sectionHref(sectionIds.about) },
+      { label: "FAQ", to: sectionHref(sectionIds.faq) },
     ],
   },
 ];
@@ -91,7 +99,6 @@ export default function Footer() {
               <li>
                 <Link to={routes.contact}>Request a quote</Link>
               </li>
-              <li className={styles.plain}>Mon–Fri, 9:00–18:00</li>
             </ul>
           </div>
         </div>
