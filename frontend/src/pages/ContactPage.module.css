@@ -1,7 +1,7 @@
 .page {
   background: var(--color-surface);
   padding-bottom: 32px;
-  margin-bottom: -96px; /* let the grey run into the footer */
+  margin-bottom: -56px; /* let the grey run into the footer */
   padding-top: 8px;
 }
 
@@ -29,7 +29,7 @@
 }
 
 .kicker {
-  font: 600 0.8rem/1 var(--font-body);
+  font: 600 1.1rem/1 var(--font-body);
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--color-primary);
@@ -49,7 +49,7 @@
 .layout {
   display: grid;
   gap: 24px;
-  padding-bottom: 96px;
+  padding-bottom: 56px;
 }
 
 .aside {

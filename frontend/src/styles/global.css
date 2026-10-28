@@ -5,11 +5,18 @@
 *::after {
   box-sizing: border-box;
 }
-
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: calc(var(--header-height) + 16px);
+  /* Where nav links (#services, #ai ...) land. Sections have 48px of top padding (64px from
+     900px up), so this puts the section label about 24px under the sticky header and keeps
+     the previous section from showing above it. Update this if the section padding changes. */
+  scroll-padding-top: 50px;
   -webkit-text-size-adjust: 100%;
+}
+@media (min-width: 900px) {
+  html {
+    scroll-padding-top: 34px;
+  }
 }
 
 body {

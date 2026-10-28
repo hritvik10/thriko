@@ -8,9 +8,8 @@ import styles from './Footer.module.css';
 
 // TODO: replace with Thriko's real profile URLs before launch.
 const socials: { label: string; href: string; icon: IconName }[] = [
-  { label: 'Thriko on LinkedIn', href: 'https://www.linkedin.com/', icon: 'linkedin' },
-  { label: 'Thriko on GitHub', href: 'https://github.com/', icon: 'github' },
-  { label: 'Thriko on X', href: 'https://x.com/', icon: 'x' },
+  { label: 'Thriko on LinkedIn', href: 'https://www.linkedin.com/company/thriko/', icon: 'linkedin' },
+  { label: 'Email Thriko', href: `mailto:${config.contactEmail}`, icon: 'mail' },
 ];
 
 const columns = [
@@ -46,11 +45,21 @@ export default function Footer() {
             <Link to={routes.home} aria-label="Thriko home">
               <Logo height={30} withName />
             </Link>
-            <p>Websites, mobile apps and AI software for businesses that can't afford to get it wrong.</p>
+            <p>
+              Websites, mobile apps and AI software for businesses that can't
+              afford to get it wrong.
+            </p>
             <ul className={styles.socials}>
               {socials.map((social) => (
                 <li key={social.href}>
-                  <a href={social.href} aria-label={social.label} target="_blank" rel="noopener noreferrer">
+                  {/* Web links open in a new tab; the mailto link should not. */}
+                  <a
+                    href={social.href}
+                    aria-label={social.label}
+                    {...(social.href.startsWith("http")
+                      ? { target: "_blank", rel: "noopener noreferrer" }
+                      : {})}
+                  >
                     <Icon name={social.icon} size={18} />
                   </a>
                 </li>
@@ -75,7 +84,9 @@ export default function Footer() {
             <h2 className={styles.heading}>Contact</h2>
             <ul className={styles.links}>
               <li>
-                <a href={`mailto:${config.contactEmail}`}>{config.contactEmail}</a>
+                <a href={`mailto:${config.contactEmail}`}>
+                  {config.contactEmail}
+                </a>
               </li>
               <li>
                 <Link to={routes.contact}>Request a quote</Link>
@@ -89,7 +100,8 @@ export default function Footer() {
           <span>© {year} Thriko. All rights reserved.</span>
           {/* TODO: link real policy pages once they exist. */}
           <span>
-            <Link to={routes.home}>Privacy Policy</Link> · <Link to={routes.home}>Terms of Service</Link>
+            <Link to={routes.home}>Privacy Policy</Link> ·{" "}
+            <Link to={routes.home}>Terms of Service</Link>
           </span>
         </div>
       </Container>

@@ -1,6 +1,6 @@
 .heading {
   max-width: 680px;
-  margin-bottom: 48px;
+  margin-bottom: 36px;
 }
 
 .center {
@@ -10,7 +10,7 @@
 }
 
 .kicker {
-  font: 600 0.8rem/1 var(--font-body);
+  font: 600 1.1rem/1 var(--font-body);
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--color-primary);
