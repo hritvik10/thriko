@@ -17,4 +17,5 @@ export const sectionIds = {
 /** Build a link to a home-page section that works from any page. */
 export function sectionHref(id: (typeof sectionIds)[keyof typeof sectionIds]): string {
   return `${routes.home}#${id}`;
+  
 }
