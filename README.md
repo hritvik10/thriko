@@ -129,7 +129,7 @@ Current target markets: United States, United Kingdom, Canada, Australia, UAE, G
 
 ## Before launch: placeholders to replace
 
-- `career@thriko.com`: set `VITE_CONTACT_EMAIL` to your real address.
+- `hello@thriko.com`: set `VITE_CONTACT_EMAIL` to your real address.
 - Social links in `components/layout/Footer.tsx` (marked `TODO`).
 - Privacy Policy and Terms links in the footer (also needed because the form stores personal data).
 - Office hours text in the footer and on the contact page.
