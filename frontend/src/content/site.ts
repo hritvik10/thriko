@@ -51,17 +51,6 @@ export interface FaqItem {
   answer: string;
 }
 
-export interface PricingTier {
-  name: string;
-  /** Short price line, e.g. "From $1,000". */
-  price: string;
-  priceNote: string;
-  description: string;
-  features: string[];
-  highlighted?: boolean;
-  cta: string;
-}
-
 export const hero = {
   badge: 'Premium quality · Affordable prices · Guaranteed',
   titleStart: 'Software your business can',
@@ -84,38 +73,7 @@ export const pricing = {
   kicker: 'Pricing',
   title: 'Premium quality. Affordable prices. Guaranteed.',
   lead: 'Every budget is welcome. If your requirements are simple, your price will be too, with the same senior team and the same quality on every project.',
-  tiers: [
-    {
-      name: 'Starter',
-      price: 'From $1,000',
-      priceNote: 'Typical range $1,000 – $5,000',
-      description: 'For simple needs: get online fast with a professional, mobile-friendly presence.',
-      features: ['Landing page or 1–5 page website', 'Mobile-friendly and fast', 'Contact form and basic SEO', 'Small fixes and updates'],
-      cta: 'Start small',
-    },
-    {
-      name: 'Growth',
-      price: '$5,000 – $25,000',
-      priceNote: 'Most popular',
-      description: 'Custom websites, web apps and first versions of mobile apps.',
-      features: ['Custom design and CMS', 'Web app or MVP mobile app', 'Payments, logins and integrations', 'Analytics and launch support'],
-      highlighted: true,
-      cta: 'Get a quote',
-    },
-    {
-      name: 'Scale',
-      price: '$25,000 – $50,000+',
-      priceNote: 'For complex products',
-      description: 'Full platforms, iOS and Android apps, and AI-powered software.',
-      features: ['Complex platforms and dashboards', 'Native or cross-platform apps', 'AI integrations, MCP and agents', 'Security reviews and scaling'],
-      cta: 'Discuss your project',
-    },
-  ] satisfies PricingTier[],
-  promise: {
-    title: 'Our affordability promise',
-    body: 'Tight budget or very basic requirements? Tell us. We will recommend the leanest option that does the job, never upsell features you do not need, and keep the price fixed before work starts.',
-  },
-  footnote: 'Ranges are a guide. Your exact price is fixed in a written proposal after a free call.',
+  cta: 'Get a quote',
 };
 
 export const services: Service[] = [
