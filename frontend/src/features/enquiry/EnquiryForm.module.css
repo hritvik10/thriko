@@ -1,9 +1,35 @@
 .form {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
   background: #fff;
   border: 1px solid var(--color-line);
   border-radius: var(--radius-md);
   padding: 28px;
   box-shadow: 0 1px 3px rgba(11, 37, 69, 0.05);
+}
+
+.formNote {
+  color: var(--color-muted);
+  font-size: 0.875rem;
+}
+
+/* Each group of fields, separated by a hairline. */
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.section + .section {
+  padding-top: 28px;
+  border-top: 1px solid var(--color-line);
+}
+
+.sectionTitle {
+  font-size: 1.1rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
 }
 
 .grid {
@@ -28,11 +54,23 @@
   color: var(--color-navy);
 }
 
-.required,
-.optional {
+/* Muted extra on a label, e.g. "Choose all that apply" or the budget currency. */
+.labelNote {
   font-weight: 400;
   color: var(--color-muted);
-  font-size: 0.85rem;
+  font-size: 0.875rem;
+}
+
+.optional {
+  display: inline-block;
+  margin-left: 6px;
+  padding: 1px 8px;
+  border-radius: 999px;
+  background: var(--color-surface-strong);
+  color: var(--color-muted);
+  font-size: 0.75rem;
+  font-weight: 500;
+  vertical-align: 1px;
 }
 
 .input {
@@ -83,9 +121,17 @@
   cursor: not-allowed;
 }
 
-/* Budget: currency symbol shown inside the left edge of the input. */
+/* Budget: input and "Not sure yet" share one row; the symbol sits inside the input's left edge. */
+.amountRow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 20px;
+}
+
 .amount {
   position: relative;
+  flex: 1 1 240px;
 }
 
 .currency {
@@ -116,8 +162,9 @@
 }
 
 .compactCheck {
-  min-height: 0;
-  padding: 10px 0 0;
+  min-height: 48px;
+  padding: 0;
+  align-items: center;
 }
 
 .subField {
@@ -175,7 +222,7 @@
 
 .choices {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  grid-template-columns: minmax(0, 1fr);
   gap: 10px;
 }
 
@@ -327,19 +374,38 @@
   overflow: hidden;
 }
 
+/* Pilot interest and consent, grouped on a soft panel. */
+.agreements {
+  padding: 4px 18px;
+  border-radius: var(--radius-sm);
+  background: var(--color-surface);
+}
+
+.agreements .error {
+  margin: 0 0 12px;
+}
+
 .footer {
   display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
+  flex-direction: column;
   gap: 16px;
-  margin-top: 28px;
   padding-top: 24px;
   border-top: 1px solid var(--color-line);
 }
 
+/* Turnstile on the left, the button on the right; they stack on narrow screens. */
+.submitRow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 16px;
+}
+
+.submit {
+  margin-left: auto;
+}
+
 .turnstile {
-  margin: 0 28px 20px;
   min-height: 65px;
   font-size: 0.875rem;
   color: var(--color-muted);
@@ -358,7 +424,6 @@
 }
 
 .formStatus {
-  margin-top: 12px;
   color: var(--color-error);
   font-weight: 500;
 }
@@ -408,9 +473,20 @@
   text-decoration: underline;
 }
 
+@media (min-width: 480px) {
+  .choices {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
 @media (min-width: 700px) {
   .form {
     padding: 40px;
+  }
+
+  /* Budget input lines up with the country column above it. */
+  .amount {
+    flex: 0 1 calc(50% - 11px);
   }
 
   .grid {

@@ -158,47 +158,56 @@ export default function EnquiryForm({ defaultPartnerProgram = false }: EnquiryFo
 
   return (
     <form className={styles.form} onSubmit={handleSubmit} noValidate aria-label="Quote request">
-      <div className={styles.grid}>
-        <div className={styles.field}>
-          <label htmlFor={fieldId('name')}>
-            Full name <span className={styles.required}>(required)</span>
-          </label>
-          <input
-            id={fieldId('name')}
-            className={styles.input}
-            type="text"
-            name="name"
-            autoComplete="name"
-            maxLength={LIMITS.nameMax}
-            value={values.name}
-            onChange={onText('name')}
-            {...a11y('name')}
-          />
-          {renderError('name')}
-        </div>
+      <p className={styles.formNote}>All fields are required unless marked optional.</p>
 
-        <div className={styles.field}>
-          <label htmlFor={fieldId('email')}>
-            Business email <span className={styles.required}>(required)</span>
-          </label>
-          <input
-            id={fieldId('email')}
-            className={styles.input}
-            type="email"
-            name="email"
-            autoComplete="email"
-            placeholder="name@company.com"
-            maxLength={LIMITS.emailMax}
-            value={values.email}
-            onChange={onText('email')}
-            {...a11y('email')}
-          />
-          {renderError('email')}
-        </div>
+      <section className={styles.section} aria-labelledby="enquiry-section-about">
+        <h2 id="enquiry-section-about" className={styles.sectionTitle}>
+          About you
+        </h2>
+        <div className={styles.grid}>
+          <div className={styles.field}>
+            <label htmlFor={fieldId('name')}>Full name</label>
+            <input
+              id={fieldId('name')}
+              className={styles.input}
+              type="text"
+              name="name"
+              autoComplete="name"
+              maxLength={LIMITS.nameMax}
+              value={values.name}
+              onChange={onText('name')}
+              {...a11y('name')}
+            />
+            {renderError('name')}
+          </div>
 
-        <fieldset className={`${styles.field} ${styles.full}`} aria-describedby={errors.projectTypes ? errorId('projectTypes') : undefined}>
+          <div className={styles.field}>
+            <label htmlFor={fieldId('email')}>Business email</label>
+            <input
+              id={fieldId('email')}
+              className={styles.input}
+              type="email"
+              name="email"
+              autoComplete="email"
+              placeholder="name@company.com"
+              maxLength={LIMITS.emailMax}
+              value={values.email}
+              onChange={onText('email')}
+              {...a11y('email')}
+            />
+            {renderError('email')}
+          </div>
+        </div>
+      </section>
+
+      <section className={styles.section} aria-labelledby="enquiry-section-project">
+        <h2 id="enquiry-section-project" className={styles.sectionTitle}>
+          Your project
+        </h2>
+
+        <fieldset className={styles.field} aria-describedby={errors.projectTypes ? errorId('projectTypes') : undefined}>
           <legend>
-            What do you need? <span className={styles.required}>(required, choose all that apply)</span>
+            What do you need? <span className={styles.labelNote}>Choose all that apply</span>
           </legend>
           <div className={styles.choices}>
             {projectTypeOptions.map((option) => (
@@ -220,114 +229,8 @@ export default function EnquiryForm({ defaultPartnerProgram = false }: EnquiryFo
         </fieldset>
 
         <div className={styles.field}>
-          <label htmlFor={fieldId('country')}>
-            Your country <span className={styles.required}>(required)</span>
-          </label>
-          <select
-            id={fieldId('country')}
-            className={`${styles.input} ${styles.select}`}
-            name="country"
-            autoComplete="country"
-            value={values.country}
-            onChange={(event) => update('country', event.target.value)}
-            {...a11y('country')}
-          >
-            <option value="">Select your country</option>
-            {markets.map((market) => (
-              <option key={market.code} value={market.code}>
-                {market.name}
-              </option>
-            ))}
-          </select>
-          {renderError('country')}
-
-          {values.country === OTHER_MARKET && (
-            <div className={styles.subField}>
-              <label htmlFor={fieldId('otherCountry')}>Which country?</label>
-              <input
-                id={fieldId('otherCountry')}
-                className={styles.input}
-                type="text"
-                name="otherCountry"
-                autoComplete="country-name"
-                maxLength={LIMITS.countryMax}
-                value={values.otherCountry}
-                onChange={(event) => update('otherCountry', event.target.value)}
-                {...a11y('otherCountry')}
-              />
-              {renderError('otherCountry')}
-            </div>
-          )}
-        </div>
-
-        <div className={styles.field}>
-          <label htmlFor={fieldId('budgetAmount')}>
-            Your budget{selectedMarket && ` (${selectedMarket.currency})`} <span className={styles.required}>(required)</span>
-          </label>
-          <div className={[styles.amount, budgetDisabled && styles.amountDisabled].filter(Boolean).join(' ')}>
-            <span className={styles.currency} aria-hidden="true">
-              {selectedMarket ? currencySymbol(selectedMarket) : '¤'}
-            </span>
-            <input
-              id={fieldId('budgetAmount')}
-              className={`${styles.input} ${styles.amountInput}`}
-              type="text"
-              inputMode="numeric"
-              name="budgetAmount"
-              autoComplete="off"
-              placeholder={selectedMarket ? 'e.g. 12,500' : 'Select your country first'}
-              maxLength={LIMITS.budgetInputMax}
-              disabled={budgetDisabled}
-              value={values.budgetNotSure ? '' : values.budgetAmount}
-              onChange={(event) => update('budgetAmount', event.target.value)}
-              onBlur={formatBudgetOnBlur}
-              aria-invalid={Boolean(errors.budgetAmount)}
-              aria-describedby={[BUDGET_HINT_ID, errors.budgetAmount && errorId('budgetAmount')].filter(Boolean).join(' ')}
-            />
-          </div>
-          {renderError('budgetAmount')}
-          <label className={`${styles.check} ${styles.compactCheck}`}>
-            <input
-              id={fieldId('budgetNotSure')}
-              type="checkbox"
-              name="budgetNotSure"
-              checked={values.budgetNotSure}
-              disabled={!selectedMarket}
-              onChange={(event) => update('budgetNotSure', event.target.checked)}
-            />
-            <span>Not sure yet</span>
-          </label>
-          <p id={BUDGET_HINT_ID} className={budgetHint.highlight ? styles.hintHighlight : styles.hint} aria-live="polite">
-            {budgetHint.highlight && <Icon name="shield" size={16} />}
-            {budgetHint.text}
-          </p>
-        </div>
-
-        <div className={styles.field}>
-          <label htmlFor={fieldId('timeline')}>
-            Desired timeline <span className={styles.required}>(required)</span>
-          </label>
-          <select
-            id={fieldId('timeline')}
-            className={`${styles.input} ${styles.select}`}
-            name="timeline"
-            value={values.timeline}
-            onChange={(event) => update('timeline', event.target.value as EnquiryFormValues['timeline'])}
-            {...a11y('timeline')}
-          >
-            <option value="">Please select</option>
-            {timelineOptions.map((option) => (
-              <option key={option.value} value={option.value}>
-                {option.label}
-              </option>
-            ))}
-          </select>
-          {renderError('timeline')}
-        </div>
-
-        <div className={`${styles.field} ${styles.full}`}>
           <label htmlFor={fieldId('message')}>
-            Project overview <span className={styles.optional}>(optional)</span>
+            Project overview <span className={styles.optional}>Optional</span>
           </label>
           <textarea
             id={fieldId('message')}
@@ -344,46 +247,162 @@ export default function EnquiryForm({ defaultPartnerProgram = false }: EnquiryFo
           </p>
           {renderError('message')}
         </div>
+      </section>
 
-        <div className={`${styles.field} ${styles.full}`}>
-          <label className={styles.check}>
-            <input
-              id={fieldId('partnerProgram')}
-              type="checkbox"
-              name="partnerProgram"
-              checked={values.partnerProgram}
-              onChange={(event) => update('partnerProgram', event.target.checked)}
-            />
-            <span>I'm interested in the Founding Partner Program.</span>
-          </label>
-          <label className={styles.check}>
-            <input
-              id={fieldId('consent')}
-              type="checkbox"
-              name="consent"
-              checked={values.consent}
-              onChange={(event) => update('consent', event.target.checked)}
-              {...a11y('consent')}
-            />
-            <span>
-              I agree that Thriko may store these details to respond to my enquiry. <span className={styles.required}>(required)</span>
-            </span>
-          </label>
-          {renderError('consent')}
-        </div>
+      <section className={styles.section} aria-labelledby="enquiry-section-scope">
+        <h2 id="enquiry-section-scope" className={styles.sectionTitle}>
+          Budget and timing
+        </h2>
+        <div className={styles.grid}>
+          <div className={styles.field}>
+            <label htmlFor={fieldId('country')}>Your country</label>
+            <select
+              id={fieldId('country')}
+              className={`${styles.input} ${styles.select}`}
+              name="country"
+              autoComplete="country"
+              value={values.country}
+              onChange={(event) => update('country', event.target.value)}
+              {...a11y('country')}
+            >
+              <option value="">Select your country</option>
+              {markets.map((market) => (
+                <option key={market.code} value={market.code}>
+                  {market.name}
+                </option>
+              ))}
+            </select>
+            {renderError('country')}
 
-        {/* Honeypot: visually hidden and skipped by keyboard and screen readers. */}
-        <div className={styles.honeypot} aria-hidden="true">
-          <label htmlFor="enquiry-website">Website</label>
-          <input id="enquiry-website" type="text" name="website" tabIndex={-1} autoComplete="off" value={values.website} onChange={onText('website')} />
+            {values.country === OTHER_MARKET && (
+              <div className={styles.subField}>
+                <label htmlFor={fieldId('otherCountry')}>Which country?</label>
+                <input
+                  id={fieldId('otherCountry')}
+                  className={styles.input}
+                  type="text"
+                  name="otherCountry"
+                  autoComplete="country-name"
+                  maxLength={LIMITS.countryMax}
+                  value={values.otherCountry}
+                  onChange={(event) => update('otherCountry', event.target.value)}
+                  {...a11y('otherCountry')}
+                />
+                {renderError('otherCountry')}
+              </div>
+            )}
+          </div>
+
+          <div className={styles.field}>
+            <label htmlFor={fieldId('timeline')}>Desired timeline</label>
+            <select
+              id={fieldId('timeline')}
+              className={`${styles.input} ${styles.select}`}
+              name="timeline"
+              value={values.timeline}
+              onChange={(event) => update('timeline', event.target.value as EnquiryFormValues['timeline'])}
+              {...a11y('timeline')}
+            >
+              <option value="">Please select</option>
+              {timelineOptions.map((option) => (
+                <option key={option.value} value={option.value}>
+                  {option.label}
+                </option>
+              ))}
+            </select>
+            {renderError('timeline')}
+          </div>
+
+          <div className={`${styles.field} ${styles.full}`}>
+            <label htmlFor={fieldId('budgetAmount')}>
+              Your budget{selectedMarket && <span className={styles.labelNote}> ({selectedMarket.currency})</span>}
+            </label>
+            <div className={styles.amountRow}>
+              <div className={[styles.amount, budgetDisabled && styles.amountDisabled].filter(Boolean).join(' ')}>
+                {/* The symbol only appears once a country is chosen, so there is no placeholder glyph. */}
+                {selectedMarket && (
+                  <span className={styles.currency} aria-hidden="true">
+                    {currencySymbol(selectedMarket)}
+                  </span>
+                )}
+                <input
+                  id={fieldId('budgetAmount')}
+                  className={[styles.input, selectedMarket && styles.amountInput].filter(Boolean).join(' ')}
+                  type="text"
+                  inputMode="numeric"
+                  name="budgetAmount"
+                  autoComplete="off"
+                  placeholder={selectedMarket ? 'e.g. 12,500' : 'Select your country first'}
+                  maxLength={LIMITS.budgetInputMax}
+                  disabled={budgetDisabled}
+                  value={values.budgetNotSure ? '' : values.budgetAmount}
+                  onChange={(event) => update('budgetAmount', event.target.value)}
+                  onBlur={formatBudgetOnBlur}
+                  aria-invalid={Boolean(errors.budgetAmount)}
+                  aria-describedby={[BUDGET_HINT_ID, errors.budgetAmount && errorId('budgetAmount')].filter(Boolean).join(' ')}
+                />
+              </div>
+              <label className={`${styles.check} ${styles.compactCheck}`}>
+                <input
+                  id={fieldId('budgetNotSure')}
+                  type="checkbox"
+                  name="budgetNotSure"
+                  checked={values.budgetNotSure}
+                  disabled={!selectedMarket}
+                  onChange={(event) => update('budgetNotSure', event.target.checked)}
+                />
+                <span>Not sure yet</span>
+              </label>
+            </div>
+            {renderError('budgetAmount')}
+            <p id={BUDGET_HINT_ID} className={budgetHint.highlight ? styles.hintHighlight : styles.hint} aria-live="polite">
+              {budgetHint.highlight && <Icon name="shield" size={16} />}
+              {budgetHint.text}
+            </p>
+          </div>
         </div>
+      </section>
+
+      <div className={styles.agreements}>
+        <label className={styles.check}>
+          <input
+            id={fieldId('partnerProgram')}
+            type="checkbox"
+            name="partnerProgram"
+            checked={values.partnerProgram}
+            onChange={(event) => update('partnerProgram', event.target.checked)}
+          />
+          <span>I'm interested in the Founding Partner Program.</span>
+        </label>
+        <label className={styles.check}>
+          <input
+            id={fieldId('consent')}
+            type="checkbox"
+            name="consent"
+            checked={values.consent}
+            onChange={(event) => update('consent', event.target.checked)}
+            {...a11y('consent')}
+          />
+          <span>I agree that Thriko may store these details to respond to my enquiry.</span>
+        </label>
+        {renderError('consent')}
       </div>
 
-      {turnstileEnabled && (
-        <Turnstile siteKey={config.turnstileSiteKey} onToken={setTurnstileToken} className={styles.turnstile} />
-      )}
+      {/* Honeypot: visually hidden and skipped by keyboard and screen readers. */}
+      <div className={styles.honeypot} aria-hidden="true">
+        <label htmlFor="enquiry-website">Website</label>
+        <input id="enquiry-website" type="text" name="website" tabIndex={-1} autoComplete="off" value={values.website} onChange={onText('website')} />
+      </div>
 
       <div className={styles.footer}>
+        <div className={styles.submitRow}>
+          {turnstileEnabled && (
+            <Turnstile siteKey={config.turnstileSiteKey} onToken={setTurnstileToken} className={styles.turnstile} />
+          )}
+          <Button type="submit" className={styles.submit} disabled={submitDisabled} withArrow={status !== 'submitting'}>
+            {status === 'submitting' ? 'Sending…' : 'Submit request'}
+          </Button>
+        </div>
         <p className={styles.privacy}>
           <Icon name="lock" size={16} />
           <span>
@@ -391,9 +410,6 @@ export default function EnquiryForm({ defaultPartnerProgram = false }: EnquiryFo
             <Link to={routes.privacy}>Privacy Policy</Link>.
           </span>
         </p>
-        <Button type="submit" disabled={submitDisabled} withArrow={status !== 'submitting'}>
-          {status === 'submitting' ? 'Sending…' : 'Submit request'}
-        </Button>
       </div>
 
       <div role="alert" className={styles.formStatus}>
