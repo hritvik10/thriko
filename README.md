@@ -159,7 +159,7 @@ Current target markets: United States, United Kingdom, Canada, Australia, UAE, G
 
 ## Before launch: placeholders to replace
 
-- `career@thriko.com`: set `VITE_CONTACT_EMAIL` to your real address.
+- `hello@thriko.com`: set `VITE_CONTACT_EMAIL` to your real address.
 - Social links in `components/layout/Footer.tsx` (marked `TODO`).
 - Terms of Service link in the footer (marked `TODO`); the Privacy Policy page exists at `/privacy`.
 - Legal details in `frontend/src/content/legal.ts` (marked `TODO`): registered company name and postal address. The Privacy Policy has to name the legal entity and a real address, and its retention periods and listed service providers should be confirmed before launch.

@@ -10,7 +10,7 @@ export const config = {
    * check off, which is what local development against the Python API does.
    */
   turnstileSiteKey: (import.meta.env.VITE_TURNSTILE_SITE_KEY ?? '').trim(),
-  contactEmail: import.meta.env.VITE_CONTACT_EMAIL || 'career@thriko.com',
+  contactEmail: import.meta.env.VITE_CONTACT_EMAIL || 'hello@thriko.com',
   /** Request timeout for form submissions, in milliseconds. */
   requestTimeoutMs: 15_000,
 } as const;
