@@ -1,10 +1,11 @@
 """Application settings, loaded from environment variables (prefix THRIKO_) or a .env file."""
 
+import json
 from functools import lru_cache
 from pathlib import Path
 from typing import List, Optional
 
-from pydantic import field_validator
+from pydantic import Field, field_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 BACKEND_ROOT = Path(__file__).resolve().parent.parent
@@ -14,20 +15,30 @@ class Settings(BaseSettings):
     model_config = SettingsConfigDict(env_prefix="THRIKO_", env_file=BACKEND_ROOT / ".env", extra="ignore")
 
     excel_path: Path = BACKEND_ROOT / "data" / "enquiries.xlsx"
-    allowed_origins: List[str] = ["http://localhost:5173", "http://127.0.0.1:5173"]
+    # Set with THRIKO_ALLOWED_ORIGINS, and read through the `allowed_origins`
+    # property below. Kept as a string because pydantic-settings JSON-decodes
+    # list-typed fields straight from the environment, before any validator runs,
+    # so a comma-separated value on a List[str] field fails at startup.
+    allowed_origins_value: str = Field(
+        default="http://localhost:5173,http://127.0.0.1:5173",
+        validation_alias="THRIKO_ALLOWED_ORIGINS",
+    )
     rate_limit_requests: int = 5
     rate_limit_window_seconds: int = 60
     trust_proxy_headers: bool = False
     frontend_dist: Optional[Path] = None
     log_level: str = "INFO"
 
-    @field_validator("allowed_origins", mode="before")
-    @classmethod
-    def split_origins(cls, value: object) -> object:
-        """Accept a comma-separated string as well as a JSON list."""
-        if isinstance(value, str) and not value.strip().startswith("["):
-            return [origin.strip() for origin in value.split(",") if origin.strip()]
-        return value
+    @property
+    def allowed_origins(self) -> List[str]:
+        """Origins allowed to call the API from a browser, as a list.
+
+        Accepts a comma-separated string (the documented form) or a JSON list.
+        """
+        value = self.allowed_origins_value.strip()
+        if value.startswith("["):
+            return [str(origin).strip() for origin in json.loads(value)]
+        return [origin.strip() for origin in value.split(",") if origin.strip()]
 
     @field_validator("excel_path", mode="after")
     @classmethod

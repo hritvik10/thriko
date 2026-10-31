@@ -1,0 +1,15 @@
+# Copy to .dev.vars and fill in. These are Worker secrets: they never reach the browser.
+
+# The Google Apps Script web app URL, ending in /exec.
+GOOGLE_SHEETS_WEBHOOK_URL=
+
+# Any long random string. Set the same value as a SHARED_SECRET script
+# property in Apps Script, so the webhook URL alone cannot write to the sheet.
+SHEETS_SHARED_SECRET=
+
+# Cloudflare Turnstile secret key (the one that is NOT the site key).
+# Locally, pair the dummy sitekey with the dummy secret below, which accepts any
+# token. The Worker refuses to use it on any hostname other than localhost, so it
+# cannot protect production by mistake.
+#   TURNSTILE_SECRET_KEY=1x0000000000000000000000000000000AA
+TURNSTILE_SECRET_KEY=

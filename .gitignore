@@ -15,3 +15,5 @@ backend/data/.enquiries-*
 # OS / editor
 .DS_Store
 .vscode/
+.dev.vars
+.wrangler/

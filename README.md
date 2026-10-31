@@ -55,6 +55,36 @@ Prefer to host the frontend separately (Vercel, Netlify, S3)? Build with `VITE_A
 
 > **Excel storage.** The workbook must live on a persistent disk on a single server. Serverless or multi-server hosting would lose or split the file. If you outgrow that, swap `ExcelEnquiryStore` for a database or a Google Sheets/Microsoft 365 integration; the route handler doesn't change.
 
+## Storing enquiries in a Google Sheet instead (no server)
+
+The Python API needs a host with a persistent disk, which is the only part of
+this project that costs money. To avoid that, the form can post to a Google
+Apps Script web app that appends rows to a Google Sheet you own, using the same
+columns, so the sheet downloads as a matching `.xlsx`.
+
+The script, its field names and the setup are documented in
+[`integrations/google-sheets/README.md`](integrations/google-sheets/README.md).
+
+In production the browser does not call Google directly. It posts to
+`/api/enquiries` on your own domain, handled by the Cloudflare Worker in
+`frontend/src/worker/`, which verifies a Cloudflare Turnstile token, validates
+the payload and forwards it to Apps Script signed with a shared secret. The
+Worker deploys with the site, so there is still only one `npx wrangler deploy`.
+
+Worker secrets (never in the bundle, never in git):
+
+```bash
+cd frontend
+npx wrangler secret put GOOGLE_SHEETS_WEBHOOK_URL
+npx wrangler secret put SHEETS_SHARED_SECRET
+npx wrangler secret put TURNSTILE_SECRET_KEY
+```
+
+Locally those three live in `frontend/.dev.vars` for `npx wrangler dev`. The
+browser only needs `VITE_TURNSTILE_SITE_KEY` in `frontend/.env`, which is public
+by design; leave it empty and the bot check is skipped, which is what
+`npm run dev` against the Python API does.
+
 ## How the form → Excel flow works
 
 1. `EnquiryForm.tsx` validates in the browser (`validation.ts`) and POSTs JSON to `/api/enquiries`.
@@ -131,5 +161,6 @@ Current target markets: United States, United Kingdom, Canada, Australia, UAE, G
 
 - `career@thriko.com`: set `VITE_CONTACT_EMAIL` to your real address.
 - Social links in `components/layout/Footer.tsx` (marked `TODO`).
-- Privacy Policy and Terms links in the footer (also needed because the form stores personal data).
+- Terms of Service link in the footer (marked `TODO`); the Privacy Policy page exists at `/privacy`.
+- Legal details in `frontend/src/content/legal.ts` (marked `TODO`): registered company name and postal address. The Privacy Policy has to name the legal entity and a real address, and its retention periods and listed service providers should be confirmed before launch.
 - Office hours text in the footer and on the contact page.

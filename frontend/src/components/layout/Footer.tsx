@@ -105,9 +105,9 @@ export default function Footer() {
 
         <div className={styles.bottom}>
           <span>© {year} Thriko. All rights reserved.</span>
-          {/* TODO: link real policy pages once they exist. */}
+          {/* TODO: point Terms of Service at a real page once it exists. */}
           <span>
-            <Link to={routes.home}>Privacy Policy</Link> ·{" "}
+            <Link to={routes.privacy}>Privacy Policy</Link> ·{" "}
             <Link to={routes.home}>Terms of Service</Link>
           </span>
         </div>
