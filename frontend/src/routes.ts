@@ -2,6 +2,7 @@
 export const routes = {
   home: '/',
   contact: '/contact',
+  privacy: '/privacy',
 } as const;
 
 export const sectionIds = {

@@ -7,6 +7,7 @@ import { routes } from './routes';
 // The home page ships in the main bundle; other pages load on demand.
 const loadContactPage = () => import('./pages/ContactPage');
 const ContactPage = lazy(loadContactPage);
+const PrivacyPage = lazy(() => import('./pages/PrivacyPage'));
 const NotFoundPage = lazy(() => import('./pages/NotFoundPage'));
 
 /** Fetch the contact page in the background once the browser is idle, so "Get a Quote" opens instantly. */
@@ -32,6 +33,7 @@ export default function App() {
         <Route element={<SiteLayout />}>
           <Route path={routes.home} element={<HomePage />} />
           <Route path={routes.contact} element={<ContactPage />} />
+          <Route path={routes.privacy} element={<PrivacyPage />} />
           <Route path="*" element={<NotFoundPage />} />
         </Route>
       </Routes>

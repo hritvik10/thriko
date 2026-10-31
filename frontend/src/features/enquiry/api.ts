@@ -73,14 +73,15 @@ export async function submitEnquiry(payload: EnquiryPayload): Promise<EnquiryRes
   }
 
   const body: unknown = await response.json().catch(() => null);
+  const status = response.status;
 
-  if (response.ok) return body as EnquiryResponse;
+  if (status === 200 || status === 201) return body as EnquiryResponse;
 
-  if (response.status === 422) {
+  if (status === 422) {
     throw new EnquiryApiError('Some fields need your attention.', 422, parseFieldErrors(body));
   }
-  if (response.status === 429) {
+  if (status === 429) {
     throw new EnquiryApiError('Too many requests. Please wait a minute and try again.', 429);
   }
-  throw new EnquiryApiError('Something went wrong on our side. Please try again, or email us directly.', response.status);
+  throw new EnquiryApiError('Something went wrong on our side. Please try again, or email us directly.', status);
 }

@@ -1,0 +1,236 @@
+/* Shared shell for the legal pages. The Terms of Service page can reuse this
+   file as-is; only the content differs. */
+
+.page {
+  background: var(--color-surface);
+  padding-bottom: 32px;
+  margin-bottom: -56px; /* let the grey run into the footer */
+  padding-top: 8px;
+}
+
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding-top: 18px;
+  font-size: 0.875rem;
+  color: var(--color-muted);
+}
+
+.breadcrumb a {
+  color: var(--color-muted);
+  text-decoration: underline;
+  padding: 10px 0;
+}
+
+.intro {
+  padding: 16px 0 32px;
+  max-width: 720px;
+}
+
+.kicker {
+  font: 600 1.1rem/1 var(--font-body);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-primary);
+}
+
+.intro h1 {
+  font-size: clamp(2rem, 4.6vw, 3rem);
+  font-weight: 800;
+  margin: 10px 0 14px;
+}
+
+.intro p {
+  color: var(--color-muted);
+  font-size: 1.125rem;
+}
+
+.dates {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 20px;
+  margin-top: 18px;
+  font-size: 0.875rem;
+  color: var(--color-muted);
+}
+
+.dates strong {
+  color: var(--color-navy);
+}
+
+.layout {
+  display: grid;
+  gap: 24px;
+  padding-bottom: 56px;
+  align-items: start;
+}
+
+.card {
+  background: #fff;
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-md);
+  padding: 28px;
+}
+
+/* Plain-language summary above the policy itself. */
+.summary {
+  background: var(--color-success-soft);
+  border-color: #a7f3d0;
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  margin-bottom: 24px;
+}
+
+.summaryIcon {
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  background: #fff;
+  border: 1px solid #a7f3d0;
+  color: var(--color-success);
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+}
+
+.summary h2 {
+  font-size: 1.1rem;
+  margin-bottom: 12px;
+}
+
+.summary ul {
+  display: grid;
+  gap: 10px;
+  font-size: 0.95rem;
+}
+
+.summary li {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+}
+
+.summary svg {
+  color: var(--color-success);
+  flex-shrink: 0;
+  margin-top: 4px;
+}
+
+.toc {
+  padding: 24px;
+}
+
+.toc h2 {
+  font-size: 0.8125rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+  margin-bottom: 14px;
+}
+
+.toc ol {
+  display: grid;
+  gap: 2px;
+  counter-reset: none;
+}
+
+.toc a {
+  display: block;
+  padding: 7px 0;
+  font-size: 0.9rem;
+  line-height: 1.4;
+  color: var(--color-muted);
+}
+
+.toc a:hover {
+  color: var(--color-primary);
+}
+
+.body {
+  max-width: 68ch;
+}
+
+.section + .section {
+  margin-top: 36px;
+  padding-top: 36px;
+  border-top: 1px solid var(--color-line);
+}
+
+.section h2 {
+  font-size: 1.3rem;
+  margin-bottom: 16px;
+  /* Clear the sticky header when a table-of-contents link jumps here. */
+  scroll-margin-top: 96px;
+}
+
+.section p {
+  color: var(--color-text);
+}
+
+.section p + p,
+.section p + .list,
+.section p + .defs,
+.section .list + p,
+.section .defs + p {
+  margin-top: 16px;
+}
+
+.list {
+  display: grid;
+  gap: 10px;
+}
+
+.list li {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  color: var(--color-text);
+}
+
+.list svg {
+  color: var(--color-primary);
+  flex-shrink: 0;
+  margin-top: 5px;
+}
+
+.defs {
+  display: grid;
+  gap: 16px;
+}
+
+.defs > div {
+  border-left: 3px solid var(--color-line-strong);
+  padding-left: 16px;
+}
+
+.defs dt {
+  font-weight: 600;
+  color: var(--color-navy);
+}
+
+.defs dd {
+  margin: 4px 0 0;
+  color: var(--color-muted);
+}
+
+.footnote {
+  margin-top: 36px;
+  padding-top: 24px;
+  border-top: 1px solid var(--color-line);
+  font-size: 0.9rem;
+  color: var(--color-muted);
+}
+
+@media (min-width: 1000px) {
+  .layout {
+    grid-template-columns: 260px 1fr;
+    gap: 40px;
+  }
+
+  .toc {
+    position: sticky;
+    top: calc(var(--header-height) + 20px);
+  }
+}

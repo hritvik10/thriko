@@ -39,6 +39,10 @@ export interface EnquiryPayload {
   partner_program: boolean;
   consent: true;
   website: string;
+  /** Cloudflare Turnstile token, when the check is enabled. Verified by the Worker. */
+  turnstile_token?: string;
+  /** When the visitor opened the form, used to reject implausibly fast submissions. */
+  started_at?: number;
 }
 
 export interface EnquiryResponse {

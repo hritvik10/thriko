@@ -54,6 +54,11 @@ class EnquiryIn(BaseModel):
     consent: bool
     # Honeypot field. Real visitors never see it, so it should always be empty.
     website: str = Field(default="", max_length=200)
+    # Sent by the browser when Cloudflare Turnstile is enabled. The Worker verifies
+    # these at the edge; this API accepts and ignores them so the same frontend
+    # build works against either backend (the model forbids unknown fields).
+    turnstile_token: str = Field(default="", max_length=4096)
+    started_at: Optional[int] = Field(default=None, ge=0)
 
     @field_validator("project_types", mode="before")
     @classmethod

@@ -75,7 +75,13 @@ export function firstInvalidField(errors: FieldErrors): EnquiryField | undefined
  * Convert validated form values into the API payload.
  * Throws if called with values that have not passed validation.
  */
-export function toPayload(values: EnquiryFormValues): EnquiryPayload {
+/** Anti-bot signals gathered by the form, checked server-side. */
+export interface EnquiryMeta {
+  turnstileToken?: string;
+  startedAt?: number;
+}
+
+export function toPayload(values: EnquiryFormValues, meta: EnquiryMeta = {}): EnquiryPayload {
   const amount = values.budgetNotSure ? null : parseAmount(values.budgetAmount);
   if (values.projectTypes.length === 0 || !values.country || (!values.budgetNotSure && amount === null) || !values.timeline || !values.consent) {
     throw new Error('toPayload called with incomplete values; run validateEnquiry first.');
@@ -93,5 +99,7 @@ export function toPayload(values: EnquiryFormValues): EnquiryPayload {
     partner_program: values.partnerProgram,
     consent: true,
     website: values.website,
+    ...(meta.turnstileToken ? { turnstile_token: meta.turnstileToken } : {}),
+    ...(meta.startedAt ? { started_at: meta.startedAt } : {}),
   };
 }

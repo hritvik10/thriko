@@ -8,6 +8,7 @@ import { EnquiryApiError, submitEnquiry } from './api';
 import { budgetHints } from '../../content/site';
 import { currencySymbol, findMarket, markets, OTHER_MARKET, parseAmount, type Market } from './markets';
 import { projectTypeOptions, timelineOptions, type ProjectType } from './options';
+import Turnstile from './Turnstile';
 import { emptyEnquiry, type EnquiryField, type EnquiryFormValues, type FieldErrors } from './types';
 import { firstInvalidField, LIMITS, toPayload, validateEnquiry } from './validation';
 import styles from './EnquiryForm.module.css';
@@ -48,6 +49,9 @@ interface EnquiryFormProps {
 export default function EnquiryForm({ defaultPartnerProgram = false }: EnquiryFormProps) {
   const [values, setValues] = useState<EnquiryFormValues>({ ...emptyEnquiry, partnerProgram: defaultPartnerProgram });
   const [errors, setErrors] = useState<FieldErrors>({});
+  const [turnstileToken, setTurnstileToken] = useState('');
+  // Captured once on mount: a form completed in under a few seconds is a bot.
+  const [startedAt] = useState(() => Date.now());
   const [status, setStatus] = useState<Status>('idle');
   const [statusMessage, setStatusMessage] = useState('');
   const [submitAttempted, setSubmitAttempted] = useState(false);
@@ -93,7 +97,7 @@ export default function EnquiryForm({ defaultPartnerProgram = false }: EnquiryFo
     setStatus('submitting');
     setStatusMessage('');
     try {
-      await submitEnquiry(toPayload(values));
+      await submitEnquiry(toPayload(values, { turnstileToken, startedAt }));
       setStatus('success');
     } catch (error) {
       const apiError =
@@ -127,6 +131,10 @@ export default function EnquiryForm({ defaultPartnerProgram = false }: EnquiryFo
     'aria-invalid': Boolean(errors[field]),
     'aria-describedby': errors[field] ? errorId(field) : undefined,
   });
+
+  const turnstileEnabled = Boolean(config.turnstileSiteKey);
+  // While Turnstile is enabled, hold the button until the check has passed.
+  const submitDisabled = status === 'submitting' || (turnstileEnabled && !turnstileToken);
 
   const selectedMarket = findMarket(values.country);
   const budgetDisabled = !selectedMarket || values.budgetNotSure;
@@ -371,12 +379,19 @@ export default function EnquiryForm({ defaultPartnerProgram = false }: EnquiryFo
         </div>
       </div>
 
+      {turnstileEnabled && (
+        <Turnstile siteKey={config.turnstileSiteKey} onToken={setTurnstileToken} className={styles.turnstile} />
+      )}
+
       <div className={styles.footer}>
         <p className={styles.privacy}>
           <Icon name="lock" size={16} />
-          Your information is confidential and never shared.
+          <span>
+            Your information is confidential and never shared. Read our{' '}
+            <Link to={routes.privacy}>Privacy Policy</Link>.
+          </span>
         </p>
-        <Button type="submit" disabled={status === 'submitting'} withArrow={status !== 'submitting'}>
+        <Button type="submit" disabled={submitDisabled} withArrow={status !== 'submitting'}>
           {status === 'submitting' ? 'Sending…' : 'Submit request'}
         </Button>
       </div>
